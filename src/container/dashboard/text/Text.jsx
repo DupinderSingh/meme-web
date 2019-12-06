@@ -1,15 +1,40 @@
 import React from "react";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import "./Text.css";
-import {Link} from "react-router-dom";
 import ColorPicker from "../../../components/dashboard/colorPicker/ColorPicker.jsx";
+import {colors} from "../../../actions/dashboard/colors";
+import {patterns} from "../../../actions/dashboard/patterns";
+import {setCookie} from "../../../actions/app";
 
 class Text extends React.Component {
     state = {
-        background: '#fff'
+        background: {color: '#fff', type: 'color'},
+        finalBackground: {color: '#fff', type: 'color'},
     };
+
+    pickColor(color) {
+        this.setState({
+            background: {color: '#fff', type: 'color'},
+            finalBackground: {color, type: 'color'},
+        })
+    }
+
+    openTheEditor() {
+        setCookie("backgroundType", this.state.finalBackground.type, 1000);
+        setCookie("background", this.state.finalBackground.type === "color" ? this.state.finalBackground.color : this.state.finalBackground.img, 1000);
+        window.location.href = "http://192.168.1.107:3001";
+    }
+
+    pickPattern(img) {
+        this.setState({
+            background: {color: '#fff', type: 'color'},
+            finalBackground: {img, type: 'img'},
+        })
+    }
+
     render() {
+        console.log(colors, "colors.....");
         return (
             <>
                 <div className="row margin-diff">
@@ -36,59 +61,45 @@ class Text extends React.Component {
                                 <div className="tab-pane fade show active" id="colors">
                                     <div className="row">
                                         <div className="col-sm-3 col-12 img-box">
-                                            <div className="box-container">
-                                                <span className="text-only-box">Text only</span>
+                                            <div className="box-container" style={{cursor: "pointer"}}
+                                                 onClick={this.openTheEditor.bind(this)}>
+                                                <span className="text-only-box"
+                                                      style={{background: this.state.finalBackground.type === "color" ? this.state.finalBackground.color : ""}}>
+                                                    {
+                                                        this.state.finalBackground.type === "img" &&
+                                                        <img
+                                                            src={require(`../../../images/` + this.state.finalBackground.img)}
+                                                            alt={"pattern"}/>
+                                                    }
+                                                    Text only
+                                                </span>
                                             </div>
                                         </div>
                                         <div className="col-sm-9 col-12 colors-box-div">
                                             <div className="colors-box-container">
                                                 <ColorPicker thi={this}/>
                                             </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color1"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color2"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color3"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color4"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color5"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color6"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color7"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color8"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color9"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color10"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color11"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color12"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color13"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color14"></span>
-                                            </div>
-                                            <div className="colors-box-container">
-                                                <span className="random-color-box color15"></span>
-                                            </div>
+                                            {
+                                                colors.map((color) => (
+                                                    <div className="colors-box-container" style={{cursor: "pointer"}}
+                                                         onClick={() => this.pickColor(color)}>
+                                                        <span className="random-color-box"
+                                                              style={{backgroundColor: color}}/>
+                                                    </div>
+                                                ))
+                                            }
+                                            {
+                                                <div className="patterns">
+                                                    {
+                                                        patterns.map((pattern, index) => (
+                                                            <img style={{cursor: "pointer"}}
+                                                                 onClick={() => this.pickPattern(pattern)}
+                                                                 src={require(`../../../images/` + pattern)}
+                                                                 alt={"pattern" + index}/>
+                                                        ))
+                                                    }
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>

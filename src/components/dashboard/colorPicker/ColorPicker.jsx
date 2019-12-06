@@ -5,12 +5,16 @@ import {SketchPicker} from 'react-color';
 
 class ColorPicker extends React.Component {
     handleChangeComplete = (color, event) => {
-        this.props.thi.setState({background: color.hex});
+        this.props.thi.setState({
+            background: {color: color.hex, type: 'color'},
+            finalBackground: {color: color.hex, type: 'color'},
+        });
     };
 
     handleChange(color, event) {
         this.props.thi.setState({
-            background: color
+            background: {color: color.hex, type: 'color'},
+            finalBackground: {color: color.hex, type: 'color'},
         });
     }
 

@@ -1,20 +1,12 @@
-export function getTemplates(endpoint, config) {
-    let status;
-    fetch(endpoint, config)
-        .then((response) => {
-            status = response.status;
-            console.log(response.status);
-            return response.json();
-        })
-        .then((resp) => {
-            if (status === 200) {
+import {CALL_POST_API} from "../../middleware/token/post-api";
+import {GET_TEMPLATES_FAILURE, GET_TEMPLATES_REQUEST, GET_TEMPLATES_SUCCESS} from "../../types/dashboard/templates";
 
-            }
-            else {
-                console.log("in series 4....")
-            }
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+export function getTemplates(body) {
+    return {
+        [CALL_POST_API]: {
+            endpoint: process.env.REACT_APP_TEMPLATES_API,
+            types: [GET_TEMPLATES_REQUEST, GET_TEMPLATES_SUCCESS, GET_TEMPLATES_FAILURE],
+            body: body
+        }
+    }
 }

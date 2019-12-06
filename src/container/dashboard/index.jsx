@@ -8,20 +8,17 @@ import Photos from "./photos/Photos";
 import Videos from "./videos/Videos";
 import Gifs from "./gifs/Gifs";
 import Templates from "./templates/Templates";
+import {getGifs} from "../../actions/dashboard/gifs";
 import {getTemplates} from "../../actions/dashboard/templates";
 
 class Index extends React.Component {
-    // callGetTemplateApi(page, keywords) {
-    //     const url = "https://app.memes.com/stockImages";
-    //     const config = {
-    //         page,
-    //         keywords
-    //     };
-    //     this.props.dispatch(getTemplates(url, config));
-    // }
-
     componentDidMount() {
-        // this.callGetTemplateApi(1, "popular")
+        this.props.dispatch(getGifs(this.props.gifSearch));
+        const body = {
+            page: this.props.templatePageNumber,
+            keywords: this.props.templateSearch
+        };
+        this.props.dispatch(getTemplates(body))
     }
 
     render() {
@@ -38,7 +35,10 @@ class Index extends React.Component {
         )
     }
 }
+
 const mapStateToProps = (state) => {
-    return {state}
+    const {gifSearch} = state.gifsReducer;
+    const {templatePageNumber, templateSearch} = state.templatesReducer;
+    return {gifSearch, templatePageNumber, templateSearch}
 };
 export default withRouter(connect(mapStateToProps)(Index))
