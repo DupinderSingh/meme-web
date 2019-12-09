@@ -1,4 +1,10 @@
-import {GET_GIPHY_FAILURE, GET_GIPHY_REQUEST, GET_GIPHY_SUCCESS} from "../../types/dashboard/gify";
+import {
+    CHANGE_GIF_NAVIGATION,
+    CHANGE_GIF_SEARCH,
+    GET_GIPHY_FAILURE,
+    GET_GIPHY_REQUEST,
+    GET_GIPHY_SUCCESS
+} from "../../types/dashboard/gify";
 
 const initialState = {
     gifSearch: "reactions",
@@ -6,7 +12,8 @@ const initialState = {
     gifError: false,
     gifStatus: "",
     gifMessage: "",
-    gifs: []
+    gifs: [],
+    gifNavigation: "reactions"
 };
 
 export default function gifsReducer(state = initialState, action) {
@@ -34,6 +41,16 @@ export default function gifsReducer(state = initialState, action) {
                 gifStatus: action.response.status,
                 gifMessage: "Something went wrong!!",
                 gifs: []
+            };
+        case CHANGE_GIF_NAVIGATION:
+            return {
+                ...state,
+                gifNavigation: action.nav
+            };
+        case CHANGE_GIF_SEARCH:
+            return {
+                ...state,
+                gifSearch: action.search
             };
         default:
             return state

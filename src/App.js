@@ -46,14 +46,13 @@ export function BodyWrapper(props) {
                 <div className="container">
                     <Switch>
                         <PrivateRoute path="/index" component={Index}/>
-                        <PrivateRoute path="/your-designs" component={YourDesigns}/>
-                        <PrivateRoute path="/trending" component={Trending}/>
+                        {/*<PrivateRoute path="/your-designs" component={YourDesigns}/>*/}
+                        {/*<PrivateRoute path="/trending" component={Trending}/>*/}
                         <PrivateRoute path="/text" component={Text}/>
-                        <PrivateRoute path="/photos" component={Photos}/>
-                        <PrivateRoute path="/videos" component={Videos}/>
+                        {/*<PrivateRoute path="/photos" component={Photos}/>*/}
+                        {/*<PrivateRoute path="/videos" component={Videos}/>*/}
                         <PrivateRoute path="/gifs" component={Gifs}/>
-                        <PrivateRoute path="/templates" component={Templates}/>
-                        <PrivateRoute path="/color-picker" component={ColorPicker}/>
+                        {/*<PrivateRoute path="/templates" component={Templates}/>*/}
                         <Redirect from="*" to='/index'/>
                     </Switch>
                 </div>

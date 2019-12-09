@@ -24,13 +24,13 @@ class Index extends React.Component {
     render() {
         return (
             <>
-                <YourDesigns/>
-                <Trending/>
-                <Text/>
-                <Photos/>
-                <Videos/>
+                {/*<YourDesigns/>*/}
+                {/*<Trending/>*/}
                 <Gifs/>
-                <Templates/>
+                {/*<Photos/>*/}
+                {/*<Videos/>*/}
+                <Text/>
+                {/*<Templates/>*/}
             </>
         )
     }

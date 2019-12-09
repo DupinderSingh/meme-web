@@ -1,5 +1,11 @@
 import {GET_API_WITHOUT_TOKEN} from "../../middleware/without_token/get-api";
-import {GET_GIPHY_FAILURE, GET_GIPHY_REQUEST, GET_GIPHY_SUCCESS} from "../../types/dashboard/gify.js";
+import {
+    CHANGE_GIF_NAVIGATION,
+    GET_GIPHY_FAILURE,
+    GET_GIPHY_REQUEST,
+    GET_GIPHY_SUCCESS,
+    CHANGE_GIF_SEARCH
+} from "../../types/dashboard/gify.js";
 
 export function getGifs(search) {
     return {
@@ -11,3 +17,13 @@ export function getGifs(search) {
         }
     }
 }
+
+export const changeGifSearch = (search) => {
+    return {type: CHANGE_GIF_SEARCH, search}
+};
+
+
+export const changeGifNav = (nav) => {
+    return {type: CHANGE_GIF_NAVIGATION, nav}
+};
+
